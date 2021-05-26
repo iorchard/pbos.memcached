@@ -1,0 +1,35 @@
+---
+- name: Setup | set kernel parameters
+  ansible.posix.sysctl:
+    name: "{{ item }}"
+    value: "1"
+    state: present
+    reload: true
+    sysctl_set: true
+  become: true
+  loop:
+    - net.ipv4.ip_nonlocal_bind
+    - net.ipv4.ip_forward
+
+- name: Setup | template memcached.conf
+  ansible.builtin.template:
+    dest: "/etc/memcached.conf"
+    src: "etc/memcached.conf_{{ ansible_os_family | lower}}.j2"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  become: true
+  notify:
+    - systemctl restart memcached.service
+
+- name: Setup | template nutcracker.yml
+  ansible.builtin.template:
+    dest: "/etc/nutcracker/nutcracker.yml"
+    src: "etc/nutcracker/nutcracker.yml.j2"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  become: true
+  notify:
+    - systemctl restart nutcracker.service
+...

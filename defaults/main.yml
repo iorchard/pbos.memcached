@@ -1,0 +1,4 @@
+---
+keepalived_vip: ""
+_memcached_port: "11211"
+...

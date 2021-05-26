@@ -1,0 +1,21 @@
+---
+- name: systemctl restart memcached.service
+  service:
+    name: "memcached.service"
+    state: "restarted"
+    enabled: true
+  become: true
+  changed_when: false
+  register: restart_memcached_service
+  failed_when: restart_memcached_service.failed
+
+- name: systemctl restart nutcracker.service
+  service:
+    name: "nutcracker.service"
+    state: "restarted"
+    enabled: true
+  become: true
+  changed_when: false
+  register: restart_nutcracker_service
+  failed_when: restart_nutcracker_service.failed
+...
