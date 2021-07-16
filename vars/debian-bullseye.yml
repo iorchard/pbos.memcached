@@ -1,2 +1,5 @@
 ---
+systemd_service_name:
+  - memcached.service
+  - nutcracker.service
 ...

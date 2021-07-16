@@ -1,21 +1,23 @@
 ---
-- name: systemctl restart memcached.service
+- name: systemctl restart service
   service:
-    name: "memcached.service"
+    name: "{{ item }}"
     state: "restarted"
     enabled: true
   become: true
   changed_when: false
-  register: restart_memcached_service
-  failed_when: restart_memcached_service.failed
+  register: restart_service
+  failed_when: restart_service.failed
+  loop: "{{ systemd_service_name }}"
 
-- name: systemctl restart nutcracker.service
+- name: systemctl stop service
   service:
-    name: "nutcracker.service"
-    state: "restarted"
+    name: "{{ item }}"
+    state: "stopped"
     enabled: true
   become: true
   changed_when: false
-  register: restart_nutcracker_service
-  failed_when: restart_nutcracker_service.failed
+  register: stop_service
+  failed_when: stop_service.failed
+  loop: "{{ systemd_service_name }}"
 ...

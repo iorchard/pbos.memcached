@@ -1,4 +1,5 @@
 ---
-keepalived_vip: ""
-_memcached_port: "11211"
+service_name: "memcached"
+keepalived_vip: ~
+memcached_port: 11211
 ...
