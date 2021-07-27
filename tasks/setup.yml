@@ -31,5 +31,5 @@
     mode: "0644"
   become: true
   notify:
-    - systemctl restart nutcracker.service
+    - systemctl restart service
 ...
