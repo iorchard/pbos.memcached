@@ -20,7 +20,7 @@
     mode: "0644"
   become: true
   notify:
-    - systemctl restart memcached.service
+    - systemctl restart service
 
 - name: Setup | template nutcracker.yml
   ansible.builtin.template:
