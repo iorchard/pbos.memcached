@@ -1,12 +1,14 @@
 ---
-- name: Debian | Install nutcracker and memcached packages
+- name: Debian | Install packages
   ansible.builtin.apt:
     name: "{{ item }}"
-    state: present
+    state: "{{ apt_state }}"
     update_cache: true
     allow_unauthenticated: false
+  register: _apt
+  until: not _apt.failed
+  retries: 3
+  delay: 3
   become: true
-  loop:
-    - nutcracker
-    - memcached
+  loop: "{{ packages }}"
 ...
