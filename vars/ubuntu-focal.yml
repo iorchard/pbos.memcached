@@ -1,0 +1,10 @@
+---
+apt_state: "latest"
+packages:
+  - nutcracker
+  - memcached
+
+systemd_service_name:
+  - memcached.service
+  - nutcracker.service
+...

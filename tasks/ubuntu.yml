@@ -1,0 +1,14 @@
+---
+- name: Ubuntu | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: "{{ apt_state }}"
+    update_cache: true
+    allow_unauthenticated: false
+  register: _apt
+  until: not _apt.failed
+  retries: 3
+  delay: 3
+  become: true
+  loop: "{{ packages }}"
+...
