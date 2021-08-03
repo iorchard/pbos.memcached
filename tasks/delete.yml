@@ -15,4 +15,16 @@
     state: absent
   loop: "{{ packages }}"
   become: true
+
+- name: Delete | delete config directory
+  tags:
+    - memcached
+    - openstack
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/memcached.conf
+    - /etc/nutcracker
+  become: true
 ...
