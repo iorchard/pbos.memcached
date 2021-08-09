@@ -1,8 +1,12 @@
 ---
-apt_state: "latest"
+pkg_state: "latest"
 packages:
   - nutcracker
   - memcached
+
+service_conf:
+  - {dest: "/etc/memcached.conf"}
+  - {dest: "/etc/nutcracker/nutcracker.yml"}
 
 systemd_service_name:
   - memcached.service

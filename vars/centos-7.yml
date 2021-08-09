@@ -1,0 +1,18 @@
+---
+pkg_state: "latest"
+
+twemproxy_download_url: "http://dl.marmotte.net/rpms/redhat/el7/x86_64/twemproxy-0.4.1-0.el7/twemproxy-0.4.1-0.el7.x86_64.rpm"
+twemproxy_rpm: "/tmp/twemproxy-0.4.1-0.el7.x86_64.rpm"
+
+packages:
+  - memcached
+  - "{{ twemproxy_rpm }}"
+
+service_conf:
+  - {dest: "/etc/sysconfig/memcached"}
+  - {dest: "/etc/twemproxy.yml"}
+
+systemd_service_name:
+  - memcached.service
+  - twemproxy.service
+...

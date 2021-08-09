@@ -13,23 +13,14 @@
 
 - name: Setup | template memcached.conf
   ansible.builtin.template:
-    dest: "/etc/memcached.conf"
-    src: "etc/memcached.conf_{{ ansible_os_family | lower}}.j2"
+    dest: "{{ item.dest }}"
+    src: "{{ ansible_os_family | lower }}{{ item.dest + '.j2' }}"
     owner: "root"
     group: "root"
     mode: "0644"
   become: true
-  notify:
-    - systemctl restart service
-
-- name: Setup | template nutcracker.yml
-  ansible.builtin.template:
-    dest: "/etc/nutcracker/nutcracker.yml"
-    src: "etc/nutcracker/nutcracker.yml.j2"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-  become: true
+  loop: "{{ service_conf }}"
+  changed_when: true
   notify:
     - systemctl restart service
 ...

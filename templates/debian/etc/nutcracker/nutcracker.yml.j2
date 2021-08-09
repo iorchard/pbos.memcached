@@ -1,0 +1,12 @@
+pbos:
+  listen: {{ keepalived_vip }}:{{ memcached_port }}
+  hash: fnv1a_64
+  distribution: ketama
+  auto_eject_hosts: true
+  redis: false
+  server_retry_timeout: 10000
+  server_failure_limit: 2
+  servers:
+  {% for s in groups['controller'] %}
+    - {{ hostvars[s].ansible_host }}:{{ memcached_port }}:1
+  {% endfor %}
