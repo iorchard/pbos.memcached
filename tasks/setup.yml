@@ -11,7 +11,7 @@
     - net.ipv4.ip_nonlocal_bind
     - net.ipv4.ip_forward
 
-- name: Setup | template memcached.conf
+- name: Setup | template configuration files
   ansible.builtin.template:
     dest: "{{ item.dest }}"
     src: "{{ ansible_os_family | lower }}{{ item.dest + '.j2' }}"
